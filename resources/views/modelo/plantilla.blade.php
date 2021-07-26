@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {{-- favico --}}
     <title>@yield('title')</title>
-   
 </head>
 <body>
     @yield('content')

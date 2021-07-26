@@ -1,21 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear peliculas</title>
-</head>
-<body>
-    <h1>Esta es la pagina para crear peliculas</h1>
-    <label>Nombre:</label><br>
-    <input type="text"><br>
+@extends('modelo.plantilla')
 
-    <label>Descripcion:</label><br>
-    <textarea  cols="22" rows="6" class="demo-form-field" ></textarea><br>
-    <label>Categoria:</label><br>
-    <input type="text"><br>
+@section('title', 'Página de Películas')
 
-    <button>Enviar </button>
-</body>
-</html>
+@section('content')
+    <h1>Bienvenidos a la página de edición películas</h1>
+
+    <form action="{{route('peliculas.update', $pelicula)}}" method="POST">
+        @csrf
+        @method('PUT')
+        <label>
+            slug:
+            <br>
+            <input type="hidden" name="slug" value="{{old('slug')}}">
+            <br>
+            @error('slug')
+                <small>*{{$message}}</small>
+            @enderror
+            <br>
+        </label>
+        
+        <label>
+            Nombre:
+            <br>
+            <input type="text" name= "nombre" value="{{old('nombre', $pelicula->nombre)}}">
+            <br>
+            @error('nombre')
+                <small>*{{$message}}</small>
+            @enderror
+            <br>
+        </label>
+        
+        <label>
+            Descripción:
+            <br>
+            <textarea name="descripcion" rows="5">{{old('descripcion', $pelicula->descripcion)}}</textarea>
+            <br>
+            @error('descripcion')
+                <small>*{{$message}}</small>
+            @enderror
+            <br>
+        </label>
+        
+        <label>
+           
+            Categoria:
+            <br>
+            <input type="text" name="categoria" value ="{{old('categoria', $pelicula->categoria)}}">
+            <br>
+            @error('categoria')
+                <small>*{{$message}}</small>
+            @enderror
+            <br>
+        </label>
+        
+        <button type="submit">actualizar datos</button>
+        
+        </form>
+@endsection
